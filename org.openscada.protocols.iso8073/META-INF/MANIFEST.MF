@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OpenSCADA ISO 8073
+Bundle-SymbolicName: org.openscada.protocols.iso8073
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: inavare GmbH
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: org.apache.mina.core.buffer,
+ org.apache.mina.core.filterchain,
+ org.apache.mina.core.session,
+ org.apache.mina.core.write,
+ org.slf4j
+Export-Package: org.openscada.protocols.iso8073
