@@ -10,4 +10,8 @@ Import-Package: org.apache.mina.core.buffer,
  org.apache.mina.core.session,
  org.apache.mina.core.write,
  org.slf4j
-Export-Package: org.openscada.protocols.iso8073
+Export-Package: org.openscada.protocols.iso8073;version="0.1.0";
+  uses:="org.apache.mina.core.session,
+   org.apache.mina.core.buffer,
+   org.apache.mina.core.filterchain,
+   org.apache.mina.core.write"

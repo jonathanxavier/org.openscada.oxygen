@@ -11,4 +11,4 @@ Import-Package: org.apache.mina.core.buffer,
  org.apache.mina.core.write,
  org.osgi.framework;version="1.3.0",
  org.slf4j
-Export-Package: org.openscada.protocols.tkpt
+Export-Package: org.openscada.protocols.tkpt;version="0.1.0";uses:="org.apache.mina.core.session,org.apache.mina.core.filterchain,org.apache.mina.core.write"
