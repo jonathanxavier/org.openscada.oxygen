@@ -490,6 +490,12 @@ DAMAGES.
 &lt;/pre&gt;
    </license>
 
+   <requires>
+      <import plugin="org.apache.mina.core"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="slf4j.api"/>
+   </requires>
+
    <plugin
          id="org.openscada.protocols.dave"
          download-size="0"
@@ -506,6 +512,13 @@ DAMAGES.
 
    <plugin
          id="org.openscada.protocols.tkpt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.openscada.oxygen"
          download-size="0"
          install-size="0"
          version="0.0.0"
