@@ -104,7 +104,7 @@ public class DaveFilter extends IoFilterAdapter
 
             final IoBuffer requestData = request.getData ();
 
-            data.putShort ( request.getCount () );
+            data.putShort ( (short) ( request.getCount () * startFactor ( request ) ) );
 
             data.put ( requestData );
         }
