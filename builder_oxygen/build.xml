@@ -21,7 +21,7 @@
 	<property file="common/config/local.properties"/>
 	<property file="common/config/build.properties"/>
 	
-	<property name="buildId" value="${atlantis.version}"/>
+	<property name="buildId" value="${oxygen.version}"/>
 	
 	<import file="${build.root}/common/lib/lib.xml"/>
 	
@@ -34,7 +34,7 @@
 	<!-- ================================= 
           target: build              
          ================================= -->
-    <target name="build" depends="" description="OpenSCADA Aurora">
+    <target name="build" depends="" description="OpenSCADA Oxygen">
     	<openscada.bundleBuild builder="builder"/>
     </target>
 
@@ -48,9 +48,7 @@
           target: publish              
          ================================= -->
     <target name="publish" depends="" description="Publish artifacts">
-    	<openscada.publish.repository id="org.openscada.atlantis.sdk" project="atlantis"/>
-    	
-    	<openscada.publish.convertRepos targetpath="${publish.maven.root}" makesnapshot="${bob.maven.makeSnapshot}"/>
+    	<openscada.publish.repository id="org.openscada.oxygen.sdk" project="oxygen"/>
     </target>
 	
 </project>
