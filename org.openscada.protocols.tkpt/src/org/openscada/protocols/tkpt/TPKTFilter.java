@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 
 public class TPKTFilter extends IoFilterAdapter
 {
-
     private final static Logger logger = LoggerFactory.getLogger ( TPKTFilter.class );
 
     private static final String SESSION_BUFFER_ATTR = "tpkt.sessionBuffer";
@@ -53,15 +52,10 @@ public class TPKTFilter extends IoFilterAdapter
         final IoBuffer in = (IoBuffer)message;
         final IoBuffer sessionBuffer = getSessionBuffer ( session );
 
-        logger.debug ( "received message - sessionBuffer: {}, in: {}", new Object[] { sessionBuffer.remaining (), in.remaining () } );
-
         // first add to the session buffer (may be optimized later)
-        logger.debug ( "1Session buffer: {}", sessionBuffer );
         sessionBuffer.position ( sessionBuffer.limit () );
         sessionBuffer.put ( in );
-        logger.debug ( "2Session buffer: {}", sessionBuffer );
         sessionBuffer.flip ();
-        logger.debug ( "3Session buffer: {}", sessionBuffer );
 
         while ( sessionBuffer.remaining () >= 4 )
         {
@@ -72,8 +66,6 @@ public class TPKTFilter extends IoFilterAdapter
                 // not enough data for body
                 return;
             }
-
-            logger.debug ( "{} bytes left in session buffer - len: {}", new Object[] { sessionBuffer.remaining (), len } );
 
             // convert
             final IoBuffer data = IoBuffer.allocate ( len - 4 );
@@ -96,9 +88,13 @@ public class TPKTFilter extends IoFilterAdapter
         {
             sessionBuffer.clear ().flip ();
         }
-        logger.debug ( "XSession buffer: {}", sessionBuffer );
     }
 
+    /**
+     * Get the session buffer and create one of necessary
+     * @param session the session
+     * @return the session buffer
+     */
     private IoBuffer getSessionBuffer ( final IoSession session )
     {
         IoBuffer buffer = (IoBuffer)session.getAttribute ( SESSION_BUFFER_ATTR );
@@ -106,7 +102,6 @@ public class TPKTFilter extends IoFilterAdapter
         {
             buffer = IoBuffer.allocate ( 0 );
             buffer.setAutoExpand ( true );
-            // buffer.setAutoShrink ( true );
             session.setAttribute ( SESSION_BUFFER_ATTR, buffer );
         }
         return buffer;
@@ -121,28 +116,34 @@ public class TPKTFilter extends IoFilterAdapter
 
     private void clearSessionBuffer ( final IoSession session )
     {
+        // simply remote the session buffer
         session.removeAttribute ( SESSION_BUFFER_ATTR );
     }
 
     @Override
     public void filterWrite ( final NextFilter nextFilter, final IoSession session, final WriteRequest writeRequest ) throws Exception
     {
+        // we only handly IoBuffers
         if ( writeRequest.getMessage () instanceof IoBuffer )
         {
             final IoBuffer inData = (IoBuffer)writeRequest.getMessage ();
             final IoBuffer outData = IoBuffer.allocate ( inData.remaining () + 4 );
 
+            // put the version, the reserved
             outData.put ( (byte)this.version );
             outData.put ( (byte)0 );
 
+            // and the data length
             outData.putShort ( (short) ( inData.remaining () + 4 ) );
 
+            // append the data itself
             outData.put ( inData );
 
             outData.flip ();
 
             logger.debug ( "TPKT out: {}", outData );
 
+            // pass on data buffer
             nextFilter.filterWrite ( session, new WriteRequestWrapper ( writeRequest ) {
                 public Object getMessage ()
                 {
