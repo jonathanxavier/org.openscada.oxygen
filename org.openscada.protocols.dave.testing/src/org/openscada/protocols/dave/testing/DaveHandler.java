@@ -6,7 +6,7 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.handler.multiton.SingleSessionIoHandler;
-import org.openscada.protocols.dave.DaveGenericMessage;
+import org.openscada.protocols.dave.DaveConnectionEstablishedMessage;
 import org.openscada.protocols.dave.DaveReadRequest;
 import org.openscada.protocols.dave.DaveReadResult;
 import org.openscada.protocols.dave.DaveWriteRequest;
@@ -40,9 +40,9 @@ public class DaveHandler implements SingleSessionIoHandler
     {
         System.out.println ( System.currentTimeMillis () + " Received: " + this.session + " -> " + message );
 
-        if ( message instanceof DaveReadResult || message instanceof DaveGenericMessage )
+        if ( message instanceof DaveReadResult || message instanceof DaveConnectionEstablishedMessage )
         {
-            sendWriteData ();
+            sendWriteFloatData ();
             // sendReadData ();
         }
     }
@@ -92,6 +92,25 @@ public class DaveHandler implements SingleSessionIoHandler
         final boolean[] bits = new boolean[] { this.tix % 8 == 0, this.tix % 8 == 1, this.tix % 8 == 2, this.tix % 8 == 3, this.tix % 8 == 4, this.tix % 8 == 5, this.tix % 8 == 6, this.tix % 8 == 7, };
 
         request.addRequest ( new DaveWriteRequest.BitRequest ( (byte)0x84, (short)1, (short) ( 14 * 8 ), this.tix % 2 == 0 ) );
+
+        this.session.write ( request );
+    }
+
+    private void sendWriteFloatData ()
+    {
+
+        final float f = this.r.nextFloat ();
+
+        logger.info ( "Sending float: {}", f );
+
+        final DaveWriteRequest request = new DaveWriteRequest ();
+
+        this.tix++;
+
+        final IoBuffer data = IoBuffer.allocate ( 4 );
+        data.putFloat ( f );
+        data.flip ();
+        request.addRequest ( new DaveWriteRequest.ByteRequest ( (byte)0x84, (short)1, (short)214, data ) );
 
         this.session.write ( request );
     }
