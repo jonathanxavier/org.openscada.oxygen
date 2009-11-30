@@ -8,7 +8,6 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.handler.multiton.SingleSessionIoHandler;
 import org.openscada.protocols.dave.DaveConnectionEstablishedMessage;
 import org.openscada.protocols.dave.DaveReadRequest;
-import org.openscada.protocols.dave.DaveReadResult;
 import org.openscada.protocols.dave.DaveWriteRequest;
 import org.openscada.protocols.dave.DaveReadRequest.Request;
 import org.openscada.protocols.iso8073.DataTPDU;
@@ -40,10 +39,10 @@ public class DaveHandler implements SingleSessionIoHandler
     {
         System.out.println ( System.currentTimeMillis () + " Received: " + this.session + " -> " + message );
 
-        if ( message instanceof DaveReadResult || message instanceof DaveConnectionEstablishedMessage )
+        if ( message instanceof DaveConnectionEstablishedMessage )
         {
-            sendWriteFloatData ();
-            // sendReadData ();
+            // sendWriteFloatData ();
+            sendReadData ();
         }
     }
 
@@ -119,7 +118,7 @@ public class DaveHandler implements SingleSessionIoHandler
     {
         final DaveReadRequest request = new DaveReadRequest ();
 
-        request.addRequest ( new Request ( (byte)0x84, (short)5, (short)14, (short)6 ) );
+        request.addRequest ( new Request ( (byte)0x84, (short)1350, (short)56, (short)40 ) );
 
         this.session.write ( request );
     }
