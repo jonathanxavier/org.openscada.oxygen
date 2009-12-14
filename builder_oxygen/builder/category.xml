@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.openscada.oxygen_0.1.0.qualifier.jar" id="org.openscada.oxygen" version="0.1.0.qualifier">
+      <category name="org.openscada.oxygen.category"/>
+   </feature>
+   <feature url="features/org.openscada.oxygen.sdk_0.1.0.qualifier.jar" id="org.openscada.oxygen.sdk" version="0.1.0.qualifier">
+      <category name="org.openscada.oxygen.category"/>
+   </feature>
+   <category-def name="org.openscada.oxygen.category" label="OpenSCADA Oxygen"/>
+</site>
