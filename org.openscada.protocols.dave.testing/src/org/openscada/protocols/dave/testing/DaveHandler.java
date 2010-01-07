@@ -74,6 +74,7 @@ public class DaveHandler implements SingleSessionIoHandler
         // sendReadData ();
     }
 
+    @SuppressWarnings ( "unused" )
     private void sendInit ()
     {
         final byte[] data = new byte[] { 0x32, 0x01, 0x00, 0x00, (byte)0xff, (byte)0xff, 0x00, 0x08, 0x00, 0x00, (byte)0xf0, 0x00, 0x00, 0x01, 0x00, 0x01, 0x03, (byte)0xc0 };
@@ -82,6 +83,7 @@ public class DaveHandler implements SingleSessionIoHandler
         this.session.write ( new DataTPDU ( buffer ) );
     }
 
+    @SuppressWarnings ( "unused" )
     private void sendWriteData ()
     {
         final DaveWriteRequest request = new DaveWriteRequest ();
@@ -95,6 +97,7 @@ public class DaveHandler implements SingleSessionIoHandler
         this.session.write ( request );
     }
 
+    @SuppressWarnings ( "unused" )
     private void sendWriteFloatData ()
     {
 
