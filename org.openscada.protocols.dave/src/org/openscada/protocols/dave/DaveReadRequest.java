@@ -78,6 +78,12 @@ public class DaveReadRequest extends DaveMessage
         {
             return this.count;
         }
+
+        @Override
+        public String toString ()
+        {
+            return String.format ( "Area: %s, block: %s, start: %s, count: %s", this.area, this.block, this.start, this.count );
+        }
     }
 
     private final Collection<Request> requests = new LinkedList<Request> ();
