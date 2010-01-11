@@ -92,7 +92,7 @@ public class COTPFilter extends IoFilterAdapter
         data.put ( (byte)0x02 ); // header length
         data.put ( (byte) ( COMMAND_DATA << 4 ) );
 
-        final byte seq = (byte)0x80; // bit 8 to 1 (last packet)... bit 7..1 to zero (first packet)
+        final byte seq = (byte)0x80; // bit 8 to 1 (last packet)... bit 7..1 to zero (packet #0)
 
         data.put ( seq );
 
