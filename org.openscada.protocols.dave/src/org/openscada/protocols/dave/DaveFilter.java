@@ -228,6 +228,7 @@ public class DaveFilter extends IoFilterAdapter
         }
 
         final byte type = buffer.get ();
+        logger.debug ( "Type: {}" );
 
         buffer.get (); // unknown
         buffer.get (); // unknown
