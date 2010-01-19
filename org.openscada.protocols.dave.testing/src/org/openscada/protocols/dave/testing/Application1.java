@@ -32,10 +32,10 @@ public class Application1 implements IApplication
 
         connector.getFilterChain ().addLast ( "logger", new LoggingFilter ( this.getClass ().getName () ) );
         connector.getFilterChain ().addLast ( "tpkt", new TPKTFilter ( 3 ) );
-        connector.getFilterChain ().addLast ( "cotp", new COTPFilter ( 0, (byte)2 ) );
+        connector.getFilterChain ().addLast ( "cotp", new COTPFilter ( 0, (byte)3 ) );
         connector.getFilterChain ().addLast ( "dave", new DaveFilter () );
 
-        connector.connect ( new InetSocketAddress ( "192.168.1.82", 102 ) );
+        connector.connect ( new InetSocketAddress ( "192.168.1.83", 102 ) );
 
         while ( this.running )
         {

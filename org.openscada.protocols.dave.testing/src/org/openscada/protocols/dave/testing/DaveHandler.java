@@ -8,8 +8,10 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.handler.multiton.SingleSessionIoHandler;
 import org.openscada.protocols.dave.DaveConnectionEstablishedMessage;
 import org.openscada.protocols.dave.DaveReadRequest;
+import org.openscada.protocols.dave.DaveReadResult;
 import org.openscada.protocols.dave.DaveWriteRequest;
 import org.openscada.protocols.dave.DaveReadRequest.Request;
+import org.openscada.protocols.dave.DaveReadResult.Result;
 import org.openscada.protocols.iso8073.DataTPDU;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +46,11 @@ public class DaveHandler implements SingleSessionIoHandler
             // sendWriteFloatData ();
             sendReadData ();
         }
+        else if ( message instanceof DaveReadResult )
+        {
+            final Result result = ( (DaveReadResult)message ).getResult ().iterator ().next ();
+            System.err.println ( result );
+        }
     }
 
     public void messageSent ( final Object message ) throws Exception
@@ -70,7 +77,7 @@ public class DaveHandler implements SingleSessionIoHandler
     {
         logger.debug ( "Session opened" );
 
-        // sendInit ();
+        //sendInit ();
         // sendReadData ();
     }
 
@@ -121,7 +128,7 @@ public class DaveHandler implements SingleSessionIoHandler
     {
         final DaveReadRequest request = new DaveReadRequest ();
 
-        request.addRequest ( new Request ( (byte)0x84, (short)1350, (short)56, (short)40 ) );
+        request.addRequest ( new Request ( (byte)0x84, (short)1450, (short)0, (short)460 ) );
 
         this.session.write ( request );
     }

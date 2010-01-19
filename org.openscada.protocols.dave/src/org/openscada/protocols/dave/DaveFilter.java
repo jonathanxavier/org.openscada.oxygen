@@ -18,15 +18,33 @@ import org.slf4j.LoggerFactory;
 public class DaveFilter extends IoFilterAdapter
 {
 
-    private static final int PACKET_START_MAGIC = 0x32;
+    private static final byte PACKET_START_MAGIC = 0x32;
 
     private final static Logger logger = LoggerFactory.getLogger ( DaveFilter.class );
 
     @Override
     public void sessionOpened ( final NextFilter nextFilter, final IoSession session ) throws Exception
     {
-        final byte[] data = new byte[] { 0x32, 0x01, 0x00, 0x00, (byte)0xff, (byte)0xff, 0x00, 0x08, 0x00, 0x00, (byte)0xf0, 0x00, 0x00, 0x01, 0x00, 0x01, 0x03, (byte)0xc0 };
-        final IoBuffer buffer = IoBuffer.wrap ( data );
+        logger.info ( "Sending hello" );
+
+        final byte[] data = new byte[] { //
+        0x00, 0x00, //
+        (byte)0xff, (byte)0xff,//
+        0x00, 0x08, // plen
+        0x00, 0x00, // dlen
+        (byte)0xf0, 0x00, //
+        0x00, 0x01, // 
+        0x00, 0x01, // 
+        (byte)0xFF, (byte)0xFF // our PDU 
+        };
+
+        final IoBuffer buffer = IoBuffer.allocate ( 0 ).setAutoExpand ( true );
+
+        buffer.put ( PACKET_START_MAGIC );
+        buffer.put ( (byte)0x01 ); // type
+
+        buffer.put ( data );
+        buffer.flip ();
 
         session.write ( new DataTPDU ( buffer ) );
 
@@ -184,7 +202,7 @@ public class DaveFilter extends IoFilterAdapter
     private void encodeHeader ( final DaveMessage message, final IoBuffer data, final byte type )
     {
         // == PDU header
-        data.put ( (byte)PACKET_START_MAGIC );
+        data.put ( PACKET_START_MAGIC );
         data.put ( type );
         data.put ( (byte)0 );
         data.put ( (byte)0 );
@@ -267,7 +285,8 @@ public class DaveFilter extends IoFilterAdapter
         else if ( parameters.remaining () == 8 && parameters.get ( 0 ) == (byte)0xF0 )
         {
             // FIXME: better detection
-            return new DaveConnectionEstablishedMessage ();
+            final int maxPDU = parameters.getUnsignedShort ( 6 );
+            return new DaveConnectionEstablishedMessage ( maxPDU );
         }
         else
         {
@@ -299,7 +318,7 @@ public class DaveFilter extends IoFilterAdapter
                 data.get ( valueData.array () );
                 result.add ( new Result ( valueData ) );
 
-                if ( len % 2 != 0 )
+                if ( len % 2 != 0 && data.remaining () > 0 )
                 {
                     data.get ();
                 }
