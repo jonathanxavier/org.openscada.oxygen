@@ -116,7 +116,7 @@ public class TPKTFilter extends IoFilterAdapter
 
     private void clearSessionBuffer ( final IoSession session )
     {
-        // simply remote the session buffer
+        // simply remove the session buffer
         session.removeAttribute ( SESSION_BUFFER_ATTR );
     }
 
