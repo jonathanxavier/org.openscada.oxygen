@@ -123,7 +123,7 @@ public class TPKTFilter extends IoFilterAdapter
     @Override
     public void filterWrite ( final NextFilter nextFilter, final IoSession session, final WriteRequest writeRequest ) throws Exception
     {
-        // we only handly IoBuffers
+        // we only handle IoBuffers
         if ( writeRequest.getMessage () instanceof IoBuffer )
         {
             final IoBuffer inData = (IoBuffer)writeRequest.getMessage ();
