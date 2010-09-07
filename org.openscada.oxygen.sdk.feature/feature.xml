@@ -3,7 +3,7 @@
       id="org.openscada.oxygen.sdk"
       label="OpenSCADA Oxygen SDK"
       version="0.1.0.qualifier"
-      provider-name="inavare GmbH">
+      provider-name="TH4 SYSTEMS GmbH">
 
    <description>
       The OpenSCADA Protocol Project (SDK)
@@ -12,7 +12,7 @@
    <copyright>
       &lt;pre&gt;
 This file is part of the OpenSCADA project
-Copyright (C) 2008-2009 inavare GmbH (http://inavare.com)
+Copyright (C) 2008-2009 TH4 SYSTEMS GmbH (http://inavare.com)
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

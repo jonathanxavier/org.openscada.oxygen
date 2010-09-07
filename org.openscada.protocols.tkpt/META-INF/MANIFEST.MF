@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OpenSCADA Protocol TKPT
 Bundle-SymbolicName: org.openscada.protocols.tkpt
 Bundle-Version: 0.14.0.qualifier
-Bundle-Vendor: inavare GmbH
+Bundle-Vendor: TH4 SYSTEMS GmbH
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.apache.mina.core.buffer,
  org.apache.mina.core.filterchain,
