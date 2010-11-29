@@ -4,7 +4,7 @@ Bundle-Name: OpenSCADA DAVE Protocol Implementation
 Bundle-SymbolicName: org.openscada.protocols.dave
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: TH4 SYSTEMS GmbH
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.apache.mina.core.buffer,
  org.apache.mina.core.filterchain,
  org.apache.mina.core.session,
