@@ -4,4 +4,4 @@ Bundle-Name: OpenSCADA Oxygen
 Bundle-SymbolicName: org.openscada.oxygen
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: TH4 SYSTEMS GmbH
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
