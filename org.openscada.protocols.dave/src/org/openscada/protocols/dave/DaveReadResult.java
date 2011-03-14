@@ -85,6 +85,8 @@ public class DaveReadResult extends DaveMessage
         final StringBuilder sb = new StringBuilder ();
 
         sb.append ( "Result: " );
+        sb.append ( this.result.size () );
+        sb.append ( "@" );
 
         int i = 0;
         for ( final Result result : this.result )
