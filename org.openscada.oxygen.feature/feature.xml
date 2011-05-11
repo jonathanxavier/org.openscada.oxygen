@@ -2,7 +2,7 @@
 <feature
       id="org.openscada.oxygen"
       label="OpenSCADA Oxygen"
-      version="0.1.0.qualifier"
+      version="0.2.0.qualifier"
       provider-name="TH4 SYSTEMS GmbH">
 
    <description>
@@ -200,7 +200,6 @@ Library.
 &lt;/pre&gt;
    </license>
 
-
    <requires>
       <import plugin="org.apache.mina.core"/>
       <import plugin="org.eclipse.osgi"/>
@@ -234,5 +233,11 @@ Library.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.openscada.protocols.arduino"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
