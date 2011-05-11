@@ -111,6 +111,7 @@
   	<openscada.builder.copyPlugin id="org.openscada.protocols.tkpt"/>
   	<openscada.builder.copyPlugin id="org.openscada.protocols.iso8073"/>
   	<openscada.builder.copyPlugin id="org.openscada.protocols.dave"/>
+  	<openscada.builder.copyPlugin id="org.openscada.protocols.arduino"/>
   </target>
 
   <!-- ===================================================================== -->
