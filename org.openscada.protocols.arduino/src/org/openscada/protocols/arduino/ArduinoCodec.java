@@ -12,7 +12,6 @@ import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
-import org.openscada.core.Variant;
 import org.openscada.protocols.arduino.messages.CommonMessage;
 import org.openscada.protocols.arduino.messages.ConfigurationMessage;
 import org.openscada.protocols.arduino.messages.DataMessage;
@@ -65,7 +64,7 @@ public class ArduinoCodec implements ProtocolEncoder, ProtocolDecoder
     {
         final byte nin = data.get ();
 
-        final Variant[] vars = new Variant[nin];
+        final Object[] vars = new Object[nin];
 
         for ( int i = 0; i < nin; i++ )
         {
@@ -76,19 +75,19 @@ public class ArduinoCodec implements ProtocolEncoder, ProtocolDecoder
         output.write ( msg );
     }
 
-    private Variant decodeData ( final IoBuffer data ) throws ProtocolCodecException
+    private Object decodeData ( final IoBuffer data ) throws ProtocolCodecException
     {
         final byte dataType = data.get ();
         switch ( dataType )
         {
         case 1:
-            return Variant.valueOf ( data.get () != 0x00 );
+            return data.get () != 0x00;
         case 2:
-            return Variant.valueOf ( data.getInt () );
+            return data.getInt ();
         case 3:
-            return Variant.valueOf ( data.getLong () );
+            return data.getLong ();
         case 4:
-            return Variant.valueOf ( data.getDouble () );
+            return data.getDouble ();
         default:
             throw new ProtocolCodecException ( String.format ( "Data type %02x is unknown", dataType ) );
         }

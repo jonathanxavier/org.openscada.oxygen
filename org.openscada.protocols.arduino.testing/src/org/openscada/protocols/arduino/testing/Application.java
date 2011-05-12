@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.openscada.core.Variant;
 import org.openscada.protocols.arduino.ArduinoDevice;
 import org.openscada.protocols.arduino.ArduinoDeviceListener;
 import org.openscada.protocols.arduino.DeviceState;
@@ -47,7 +46,7 @@ public class Application implements IApplication
             }
 
             @Override
-            public void dataChange ( final Variant[] data )
+            public void dataChange ( final Object[] data )
             {
                 System.out.println ( "Data change" );
                 for ( int i = 0; i < data.length; i++ )
