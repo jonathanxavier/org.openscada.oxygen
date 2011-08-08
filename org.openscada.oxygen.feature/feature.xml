@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.openscada.oxygen"
-      label="OpenSCADA Oxygen"
-      version="0.2.0.qualifier"
+      label="openSCADA Oxygen"
+      version="0.3.0.qualifier"
       provider-name="TH4 SYSTEMS GmbH">
 
    <description>
